@@ -67,9 +67,8 @@ def get_local_ip(ifname):
  return ret
 
 if __name__=="__main__":
-    #mac="CC:D2:9B:7C:30:BC"
-    #ip="10.21.124.57" ##ip is local machine's ip address but not router's ip address
-    
+  
+    #ip="10.21.124.57" ##ip is local machine's ip address but not router's ip address  
     mac="00:0C:29:15:0C:28"
     ip="192.168.208.132"
 
