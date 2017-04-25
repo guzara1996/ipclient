@@ -13,6 +13,10 @@
 
 using namespace std;
 
+typedef int int32_t;
+// typedef signed char int8_t;
+// typedef unsigned char int8_t;
+
 //#define ETH_NAME    "ens33"  //如果要获取其他网卡的地址，将这个换为其他网卡名称，比如eth0
 
 string ip = "";
@@ -79,10 +83,10 @@ int main(int argc, char* argv[])
     cout << nIP[3] << endl;
 
     int ispKey=0x4e67c6a7;
-        int ECX;
-        int ESI;
-        int EBX;
-        int EAX;
+        int ECX = 0;
+        int ESI = 0;
+        int EBX = 0;
+        int EAX = 0;
         unsigned char localInfo[]={0x00,0x00,0x00,0x00,0x00,0x00,
                                   0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
                                   0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
@@ -93,9 +97,9 @@ int main(int argc, char* argv[])
                                   0x02,0x00};
     int nInfo=sizeof(localInfo);
     int nMac=mac_addr.size();
-    int ispNum = (int) argv[2][0];
+    int ispNum = (int) argv[2][0] - 48;
     localInfo[nInfo-2]=(unsigned char)ispNum;
-    cout << "ispNum: " << (unsigned char)ispNum << endl;
+    cout << "ispNum: " << ispNum << ' ' << (unsigned char)ispNum <<endl;
     localInfo[0]='1';
 
     for (int i=0;i<4;i++)
@@ -114,7 +118,7 @@ int main(int argc, char* argv[])
     for (int i=0;i<nInfo;i++)
     {
          ESI=ECX;
-         ESI=ESI<<5;
+         ESI=(int)(ECX<<5);
         if (ECX>0)
          {
              EBX=ECX;
@@ -126,8 +130,8 @@ int main(int argc, char* argv[])
              EBX=EBX>>2;
              EBX=EBX|(0xC0000000);
          }
-         ESI=ESI+localInfo[i];
-         EBX=EBX+ESI;
+         ESI=ESI+(int)localInfo[i];
+         EBX=(int)(EBX+ESI);
          ECX=ECX^EBX;
     }
     ECX=ECX&0x7FFFFFFF;
