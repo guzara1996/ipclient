@@ -97,7 +97,8 @@ int main(int argc, char* argv[])
                                   0x02,0x00};
     int nInfo=sizeof(localInfo);
     int nMac=mac_addr.size();
-    int ispNum = (int) argv[2][0] - 48;
+    int ispNum = 3;
+    sscanf(argv[2], "%d", &ispNum);
     localInfo[nInfo-2]=(unsigned char)ispNum;
     cout << "ispNum: " << ispNum << ' ' << (unsigned char)ispNum <<endl;
     localInfo[0]='1';
